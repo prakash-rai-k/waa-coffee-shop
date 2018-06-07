@@ -1,0 +1,15 @@
+/Users/owner/Desktop/WAA/Project/coffeeShop/src/main/java/edu/mum/coffee/service/PersonService.java
+/Users/owner/Desktop/WAA/Project/coffeeShop/src/main/java/edu/mum/coffee/config/WebSecurityConfig.java
+/Users/owner/Desktop/WAA/Project/coffeeShop/src/main/java/edu/mum/coffee/domain/Address.java
+/Users/owner/Desktop/WAA/Project/coffeeShop/src/main/java/edu/mum/coffee/repository/ProductRepository.java
+/Users/owner/Desktop/WAA/Project/coffeeShop/src/main/java/edu/mum/coffee/service/OrderService.java
+/Users/owner/Desktop/WAA/Project/coffeeShop/src/main/java/edu/mum/coffee/domain/Orderline.java
+/Users/owner/Desktop/WAA/Project/coffeeShop/src/main/java/edu/mum/coffee/repository/OrderRepository.java
+/Users/owner/Desktop/WAA/Project/coffeeShop/src/main/java/edu/mum/coffee/domain/Order.java
+/Users/owner/Desktop/WAA/Project/coffeeShop/src/main/java/edu/mum/coffee/domain/Product.java
+/Users/owner/Desktop/WAA/Project/coffeeShop/src/main/java/edu/mum/coffee/service/ProductService.java
+/Users/owner/Desktop/WAA/Project/coffeeShop/src/main/java/edu/mum/coffee/CoffeShopApplication.java
+/Users/owner/Desktop/WAA/Project/coffeeShop/src/main/java/edu/mum/coffee/domain/ProductType.java
+/Users/owner/Desktop/WAA/Project/coffeeShop/src/main/java/edu/mum/coffee/repository/PersonRepository.java
+/Users/owner/Desktop/WAA/Project/coffeeShop/src/main/java/edu/mum/coffee/domain/Person.java
+/Users/owner/Desktop/WAA/Project/coffeeShop/src/main/java/edu/mum/coffee/controller/HomeController.java
