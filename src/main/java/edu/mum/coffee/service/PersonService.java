@@ -20,6 +20,10 @@ public class PersonService {
 		return personRepository.save(person);
 	}
 
+	public List<Person> getAllPersons() {
+		return personRepository.findAll();
+	}
+	
 	public List<Person> findByEmail(String email) {
 		return personRepository.findByEmail(email);
 	}
