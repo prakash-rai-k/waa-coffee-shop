@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Add Product</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" />
+</head>
+<body>
+	<nav class="navbar navbar-dark bg-primary">
+		<a href="/logout" class="btn btn-success"
+			style="float: right; margin: 5px 5px 0 0;">Logout</a>
+	</nav>
+	<div class="container">
+
+		<div class="row" style="width: 400px; margin: 0 auto;">
+			<h3>Add New Product</h3>
+			<form th:action="@{../editProduct}" th:object="${product}"
+				method="post">
+				<input type="hidden" th:field="*{id}" /> Product Name <br /> <input
+					type="text" th:field="*{productName}" class="form-control" /> <span
+					th:errors="*{productName}" class="text-danger"></span> <br />
+
+				Description <br />
+				<textArea th:field="*{description}" class="form-control" rows="6"></textArea>
+				<span th:errors="*{description}" class="text-danger"></span> <br />
+
+				Price <br /> <input type="text" th:field="*{price}"
+					class="form-control" /> <span th:errors="*{price}"
+					class="text-danger"></span><br /> Type <br /> <select
+					th:field="*{productType}">
+					<option value="">Product Types</option>
+					<option th:each="proType : ${productTypes}" th:value="${proType}"
+						th:utext="${proType}" />
+				</select> <span th:errors="*{productType}" class="text-danger"></span><br />
+				<br /> <input type="submit" class="btn btn-primary" />
+			</form>
+
+			<div th:if="${errorMessage}" th:utext="${errorMessage}"
+				style="color: red; font-style: italic;">...</div>
+		</div>
+	</div>
+
+</body>
+</html>
