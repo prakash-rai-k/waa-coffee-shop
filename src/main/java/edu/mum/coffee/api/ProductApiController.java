@@ -23,7 +23,7 @@ public class ProductApiController {
 	@Resource
 	private ProductService productService;
 	
-	// -------------------Retrieve All Products---------------------------------------------
+	// -------------------Retrieve All Product---------------------------------------------
 	 
 	 @RequestMapping(value = "/products", method = RequestMethod.GET)
     public ResponseEntity<List<Product>> getAllProducts() {
