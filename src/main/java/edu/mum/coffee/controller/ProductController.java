@@ -23,7 +23,7 @@ public class ProductController {
 	private ProductService productService;
 
 	@RequestMapping("/products")
-	public String getBooks(Model model) {
+	public String getProducts(Model model) {
 		System.out.println("Here in Products..-------------->" + productService.getAllProduct());
 		model.addAttribute("products", productService.getAllProduct());
 		return "productList";

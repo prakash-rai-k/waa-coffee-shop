@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Product List</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<nav class="navbar navbar-dark bg-primary">
+		<a href="/register" class="btn btn-success"
+			style="float: right; margin: 5px 5px 0 0;">Sign Up</a>
+	</nav>
+	<div class="container">
+		
+		<div class="row">
+			<div th:each="product : ${products}">
+				<div class="card" style="width: 18rem; float: left; margin-right: 20px;">
+				<img  class="card-img-top" th:src="@{/food.jpg}" style="width:180px;"/>
+				<div class="card-body">
+					<h5 th:utext="${product.productName}">...</h5>
+					<p class="card-text" th:utext="${product.description}">...</p>
+					<a th:href="@{'/placeOrder/' + ${product.id}}" class="btn btn-primary">Order</a>
+				</div>
+			</div>
+			</div>
+			
+		</div>
+	</div>
+</body>
+</html>
