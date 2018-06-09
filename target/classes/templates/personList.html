@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Person List</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<nav class="navbar navbar-dark bg-primary">
+		<a href="/logout" class="btn btn-success"
+			style="float: right; margin: 5px 5px 0 0;">Logout</a>
+	</nav>
+	<div class="container">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#">Persons</a></li>
+			<li><a href="/products">Products</a></li>
+			<li><a href="/orders">Orders</a></li>
+		</ul>
+		<div class="row">
+			<br /> <a href="addPerson" class="btn btn-primary"
+				style="float: right;"><i class="fa fa-plus"></i>Add Person</a> <br />
+			<br />
+			<div>
+				<table border="1" class="table">
+					<tr class="thead-light">
+						<th style="width:10%;">FirstName</th>
+						<th style="width:60%;">Lastname</th>
+						<th style="width:10%;">Email</th>
+						<th style="width:10%;">Address</th>
+						<th style="width:10%;">Phone</th>
+						<th style="width:10%;">Enable</th>
+						<th style="width:10%;">Actions</th>
+					</tr>
+					<tr th:each="person : ${persons}">
+						<td th:utext="${person.firstName}">...</td>
+						<td th:utext="${person.lastName}">...</td>
+						<td th:utext="${person.email}">..</td>
+						<td th:utext="${person.address}">..</td>
+						<td th:utext="${person.phone}">..</td>
+						<td th:utext="${person.enable}">..</td>
+						<td>
+								<a
+							th:href="@{'personDetail/'+${person.id}}"><i
+								class="fa fa-edit" style="cursor: pointer;"></i></a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

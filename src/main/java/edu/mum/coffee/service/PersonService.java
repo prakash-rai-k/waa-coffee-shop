@@ -28,8 +28,12 @@ public class PersonService {
 		return personRepository.findByEmail(email);
 	}
 
-	public Person findById(Long id) {
-		return personRepository.findOne(id);
+	public Person findById(long id) {
+		System.out.println("id :" + id);
+		System.out.println("personRepository :" + personRepository);
+		Person person = personRepository.findOne(id);
+		System.out.println("person :" + person);
+		return person;
 	}
 
 	public void removePerson(Person person) {
