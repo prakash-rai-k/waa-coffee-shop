@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Add Person</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" />
+</head>
+<body>
+	<nav class="navbar navbar-dark bg-primary">
+		<a href="/logout" class="btn btn-success"
+			style="float: right; margin: 5px 5px 0 0;">Logout</a>
+	</nav>
+	<div class="container">
+
+		<div class="row" style="width: 400px; margin: 0 auto;">
+			<h3>Add New Person</h3>
+			<form th:action="@{../register}" th:object="${person}" method="post">
+				First Name <br /> <input type="text" th:field="*{firstName}"
+					class="form-control" /> <span th:errors="*{firstName}"
+					class="text-danger"></span> <br /> Last Name <br />
+				<textArea th:field="*{lastName}" class="form-control"></textArea>
+				<span th:errors="*{lastName}" class="text-danger"></span> <br />
+
+				Email <br /> <input type="text" th:field="*{email}"
+					class="form-control" /> <span th:errors="*{email}"
+					class="text-danger"></span>
+					<br />  Address
+					<br /><input type="text" placeholder="City" th:field="*{address.city}"
+					class="form-control" /> <span th:errors="*{address.city}"
+					class="text-danger"></span> 
+					<input type="text" placeholder="State" th:field="*{address.state}"
+					class="form-control" /> <span th:errors="*{address.state}"
+					class="text-danger"></span>
+					
+					<input type="text" placeholder="Country" th:field="*{address.country}"
+					class="form-control" /> <span th:errors="*{address.country}"
+					class="text-danger"></span>
+					
+					<input type="text" placeholder="Zip Code" th:field="*{address.zipcode}"
+					class="form-control" /> <span th:errors="*{address.zipcode}"
+					class="text-danger"></span><br /> Phone <br />
+				<input th:field="*{phone}" class="form-control"/>
+				<span th:errors="*{phone}" class="text-danger"></span> <br />
+
+				Enable <br /> <input type="text" th:field="*{enable}"
+					class="form-control" /> <span th:errors="*{enable}"
+					class="text-danger"></span><br />
+				<br /> <input type="submit" class="btn btn-primary" />
+			</form>
+
+			<div th:if="${errorMessage}" th:utext="${errorMessage}"
+				style="color: red; font-style: italic;">...</div>
+		</div>
+	</div>
+
+</body>
+</html>
