@@ -87,6 +87,16 @@ public class Product {
 		return "Product [id=" + id + ", productName=" + productName + ", description=" + description + ", price="
 				+ price + ", productType=" + productType + "]";
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+			if(obj == null && obj instanceof Product) return false;
+			Product product = (Product) obj;
+				
+			if(this.getId() == product.getId()) return true;
+		return false;
+	}
 	
 	
 

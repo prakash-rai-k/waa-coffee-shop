@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>Product List</title>
+<title>Coffee Shop</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <link rel="stylesheet"
@@ -12,14 +12,14 @@
 	<nav class="navbar navbar-dark bg-primary">
 	<a href="/checkout" class="btn btn-success"
 			style="float: right; margin: 5px 5px 0 0;">Checkout</a>
-		<a href="/register" class="btn btn-success"
-			style="float: right; margin: 5px 5px 0 0;">Sign Up</a>
+<!-- 		<a href="/register" class="btn btn-success" -->
+<!-- 			style="float: right; margin: 5px 5px 0 0;">Sign Up</a> -->
 	</nav>
 	<div class="container">
 		<div class="row">
 			<div th:each="prod : ${products}">
 				<div class="card" style="width: 18rem; float: left; margin-right: 20px;">
-				<img  class="card-img-top" th:src="@{/food.jpg}" style="width:180px;"/>
+				<img th:src="@{/images/food.jpg}" style="width:180px; height:200px;" class="card-img-top"/>
 				<div class="card-body">
 					<h5 th:utext="${prod.productName}">...</h5>
 					<p class="card-text" th:utext="${prod.description}">...</p>

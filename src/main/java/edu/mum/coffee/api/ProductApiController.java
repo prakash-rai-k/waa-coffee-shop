@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,7 @@ public class ProductApiController {
 	private ProductService productService;
 	
 	// -------------------Retrieve All Product---------------------------------------------
-	 
+	@CrossOrigin
 	 @RequestMapping(value = "/products", method = RequestMethod.GET)
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> products = productService.getAllProduct();
@@ -59,9 +60,7 @@ public class ProductApiController {
 	 
 	    @RequestMapping(value = "/product/{id}", method = RequestMethod.PUT)
 	    public ResponseEntity<?> updateProduct(@PathVariable("id") int id, @RequestBody Product product) {
-	 
 	        Product currentProduct = productService.getProduct(id);
-	 
 	        if (currentProduct == null) {
 	            return new ResponseEntity("Unable to upate. User with id " + id + " not found.",
 	                    HttpStatus.NOT_FOUND);

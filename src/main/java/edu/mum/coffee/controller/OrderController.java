@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,6 +39,9 @@ public class OrderController {
 
 	@RequestMapping("/orders")
 	public String getOrders(Model model) {
+		System.out.println("Before");
+		System.out.println("Orders------>" + orderService.findAll());
+		System.out.println("After");
 		model.addAttribute("orders", orderService.findAll());
 		return "orderList";
 	}
@@ -57,7 +61,8 @@ public class OrderController {
 	} 
 	
 	@RequestMapping(value = "/placeOrder", method = RequestMethod.POST)
-	public String placeOrder(@ModelAttribute("orderline") Orderline orderline, HttpSession session) {
+	public String placeOrder(@ModelAttribute("orderline") Orderline orderline, HttpSession session, Authentication auth) {
+		
 		orderline.getProduct().setId(1);
 		Product product = productService.getProduct(orderline.getProduct().getId());
 		orderline.setProduct(product);
@@ -67,7 +72,6 @@ public class OrderController {
 		} else {
 			orderLineList = (ArrayList<Orderline>) session.getAttribute("orderLineList");
 		}
-		
 		int index = 0;
 		boolean isNew = false;
 		for(Orderline ol : orderLineList) {
@@ -75,11 +79,11 @@ public class OrderController {
 				orderLineList.set(index, orderline);
 				isNew = true;
 			}
-			
 			index++;
 		}
 		
 		if(!isNew) orderLineList.add(orderline);
+		System.out.println();
 		session.setAttribute("orderLineList", orderLineList);	
 		return "redirect:/index";
 	}
@@ -94,14 +98,12 @@ public class OrderController {
 	public String makeOrder(Model model, HttpSession session) {
 		List<Orderline> orderLineList =  (ArrayList<Orderline>) session.getAttribute("orderLineList");
 		Person person = (Person) session.getAttribute("user");
-		
 		Order order = new Order();
 		order.setOrderDate(new Date());
 		order.setPerson(person);
 		for(Orderline orderline : orderLineList) {
 			order.addOrderLine(orderline);
 		}
-		
 		orderService.save(order);
 		return "success";
 	}

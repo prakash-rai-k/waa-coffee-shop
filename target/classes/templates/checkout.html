@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" />
+<title>Insert title here</title>
+</head>
+<body>
+	<nav class="navbar navbar-dark bg-primary"> 
+			<a href="/register" class="btn btn-success" style="float: right; margin: 5px 5px 0 0;">Sign Up</a>
+	</nav>
+	<div class="container">
+		<table class="table">
+			<tr>
+				<td>Product</td>
+				<td>Quantity</td>
+			</tr>
+
+			<tr th:each="orderline : ${orderLineList}">
+				<td th:utext="${orderline.product.productName}"></td>
+				<td th:utext="${orderline.quantity}"></td>
+			</tr>
+		</table>
+		<a class="btn tbn-primary" href="/makeOrder">Checkout</a>
+	</div>
+</body>
+</html>

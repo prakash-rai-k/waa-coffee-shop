@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +51,7 @@ public class PersonApiController {
 	// -------------------Create a
 	// Product-------------------------------------------
 
+	@CrossOrigin
 	@RequestMapping(value = "/person", method = RequestMethod.POST)
 	public ResponseEntity<?> createPerson(@RequestBody Person person, UriComponentsBuilder ucBuilder) {
 		personService.savePerson(person);

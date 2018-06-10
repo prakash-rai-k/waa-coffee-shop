@@ -20,11 +20,6 @@ public class Orderline {
 	@ManyToOne
 	private Order order;
 
-	@Override
-	public String toString() {
-		return "Orderline [id=" + id + ", quantity=" + quantity + ", product=" + product + ", order=" + order + "]";
-	}
-
 	public int getQuantity() {
 		return quantity;
 	}
