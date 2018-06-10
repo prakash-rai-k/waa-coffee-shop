@@ -1,5 +1,7 @@
 package edu.mum.coffee.controller;
 
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
@@ -11,12 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import edu.mum.coffee.domain.Orderline;
 import edu.mum.coffee.domain.Person;
+import edu.mum.coffee.service.PersonService;
 import edu.mum.coffee.service.ProductService;
 
 @Controller
 public class HomeController {
 	@Resource
 	private ProductService productService;
+	
+	@Resource
+	private PersonService personService;
 	
 	@GetMapping({"/", "/home"})
 	public String homePage() {
@@ -32,14 +38,9 @@ public class HomeController {
 	public String getProducts(@ModelAttribute("orderline") Orderline orderline, Model model, HttpSession session) {
 		System.out.println("Here in Products..-------------->" + productService.getAllProduct());
 		model.addAttribute("products", productService.getAllProduct());
-		Person person = new Person();
-		person.setId(1);
-		person.setFirstName("Prakash");
-		person.setLastName("Rai");
-		person.setEmail("prai@mum.edu");
-		person.setPhone("9887876786");
-		person.setEnable(true);
+		Person person = personService.findById(1);
 		session.setAttribute("user", person);
+		model.addAttribute("orderLineList", (ArrayList<Orderline>) session.getAttribute("orderLineList"));
 		return "index";
 	}
 }

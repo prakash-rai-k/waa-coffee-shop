@@ -34,6 +34,7 @@ public class ProductController {
 		model.addAttribute("products", productService.getAllProduct());
 		Person person = personService.findById(1);
 		session.setAttribute("user", person);
+
 		return "productList";
 	}
 
