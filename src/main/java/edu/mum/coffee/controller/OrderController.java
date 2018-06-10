@@ -39,9 +39,6 @@ public class OrderController {
 
 	@RequestMapping("/orders")
 	public String getOrders(Model model) {
-		System.out.println("Before");
-		System.out.println("Orders------>" + orderService.findAll());
-		System.out.println("After");
 		model.addAttribute("orders", orderService.findAll());
 		return "orderList";
 	}
@@ -62,8 +59,8 @@ public class OrderController {
 	
 	@RequestMapping(value = "/placeOrder", method = RequestMethod.POST)
 	public String placeOrder(@ModelAttribute("orderline") Orderline orderline, HttpSession session, Authentication auth) {
-		
-		orderline.getProduct().setId(1);
+		//System.out.println("Product--->" + orderline.getProduct());
+		orderline.getProduct().setId(orderline.getProduct().getId());
 		Product product = productService.getProduct(orderline.getProduct().getId());
 		orderline.setProduct(product);
 		List<Orderline> orderLineList;
@@ -73,17 +70,20 @@ public class OrderController {
 			orderLineList = (ArrayList<Orderline>) session.getAttribute("orderLineList");
 		}
 		int index = 0;
-		boolean isNew = false;
+		boolean isNew = true;
 		for(Orderline ol : orderLineList) {
 			if(ol.getProduct().equals(orderline.getProduct())) {
 				orderLineList.set(index, orderline);
-				isNew = true;
+				isNew = false;
+				System.out.println("Another one added to list:--->" + ol.getProduct().getProductName());
 			}
 			index++;
 		}
 		
-		if(!isNew) orderLineList.add(orderline);
-		System.out.println();
+		if(isNew) {
+			orderLineList.add(orderline);
+			System.out.println("Added new------->" + orderline.getProduct().getProductName());
+			}
 		session.setAttribute("orderLineList", orderLineList);	
 		return "redirect:/index";
 	}

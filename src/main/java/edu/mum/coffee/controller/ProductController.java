@@ -6,8 +6,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,26 +17,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import edu.mum.coffee.domain.Person;
 import edu.mum.coffee.domain.Product;
 import edu.mum.coffee.domain.ProductType;
+import edu.mum.coffee.service.PersonService;
 import edu.mum.coffee.service.ProductService;
 
 @Controller
 public class ProductController {
 	@Resource
 	private ProductService productService;
+	
+	@Resource
+	private PersonService personService;
 
 	@RequestMapping("/products")
 	public String getProducts(Model model, HttpSession session) {
-		System.out.println("Here in Products..-------------->" + productService.getAllProduct());
+		//System.out.println("Here in Products..-------------->" + productService.getAllProduct());
 		model.addAttribute("products", productService.getAllProduct());
-		Person person = new Person();
-		person.setId(76);
-		person.setFirstName("Prakash");
-		person.setLastName("Rai");
-		person.setEmail("prai@mum.edu");
-		person.setPhone("9887876786");
-		person.setEnable(true);
+		Person person = personService.findById(1);
 		session.setAttribute("user", person);
-		
 		return "productList";
 	}
 

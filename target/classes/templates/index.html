@@ -24,7 +24,7 @@
 					<h5 th:utext="${prod.productName}">...</h5>
 					<p class="card-text" th:utext="${prod.description}">...</p>
 					<form th:action="@{placeOrder}" th:object="${orderline}" method="POST">
-						<input th:field="*{product.id}" th:value="${prod.id}" type="hidden"/>
+						<input type="hidden" th:field="*{product.id}" th:attr="productId=${prod.id}" class="productHidden"/>
 						<input th:field="*{quantity}" type="number" value="1" style="width:60px; float:left; margin-right:5px;"/>
 						<button class="btn btn-primary addToCart" >Add to Cart</button>	
 					</form>
@@ -35,14 +35,11 @@
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
-		$('.addToCart').click(function(){
-			//var id = $(this);
-			console.log($(this).attr('productId'));
-			//var quantity = $('#quantity-' + id).val();
-			
-			
-			//var url = 'http://localhost:8080/placeOrder/' + id + '/' + quantity;
-			//console.log(url);
+		$(document).ready(function(){
+			$('.productHidden').each(function(){
+				console.log($(this).attr('productId'));
+				$(this).val($(this).attr('productId'));
+			});		
 		});
 	</script>
 </body>
