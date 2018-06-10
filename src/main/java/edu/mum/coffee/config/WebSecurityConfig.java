@@ -15,7 +15,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/", "/home", "/index","/api/*","/api/**","/api/*/*").permitAll()
+                .antMatchers("/", "/home", "/index", "/register","/api/*","/api/**","/api/*/*","/placeOrder/*","/checkout","/main.js").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
@@ -32,5 +32,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication().withUser("super").password("pw").roles("ADMIN");
+		//auth.jdbcAuthentication().authoritiesByUsernameQuery("");
 	}
 }

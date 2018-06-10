@@ -35,6 +35,12 @@ public class Person {
 		return id;
 	}
 	
+	@Override
+	public String toString() {
+		return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", address=" + address + ", phone=" + phone + ", enable=" + enable + "]";
+	}
+
 	public void setId(long id) {
 		this.id = id;
 	}

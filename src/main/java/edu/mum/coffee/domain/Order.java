@@ -20,6 +20,12 @@ import javax.persistence.TemporalType;
 @Table(name = "OrderTable")
 public class Order {
 
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", orderDate=" + orderDate + ", orderLines=" + orderLines + ", person=" + person
+				+ "]";
+	}
+
 	@Id
 	@GeneratedValue
 	private int id;

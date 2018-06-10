@@ -1,8 +1,11 @@
 package edu.mum.coffee.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -12,11 +15,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.mum.coffee.domain.Order;
 import edu.mum.coffee.domain.Orderline;
 import edu.mum.coffee.domain.Person;
-import edu.mum.coffee.service.OrderLineService;
+import edu.mum.coffee.domain.Product;
 import edu.mum.coffee.service.OrderService;
 import edu.mum.coffee.service.PersonService;
 import edu.mum.coffee.service.ProductService;
@@ -28,6 +32,9 @@ public class OrderController {
 	
 	@Resource
 	private PersonService personService;
+	
+	@Resource
+	private ProductService productService;
 
 	@RequestMapping("/orders")
 	public String getOrders(Model model) {
@@ -49,27 +56,53 @@ public class OrderController {
 		return "addOrder";
 	} 
 	
-	@RequestMapping(value = "/placeOrder/{id}", method = RequestMethod.GET)
-	public String placeOrder(@PathVariable("id") int id, Model model) {
+	@RequestMapping(value = "/placeOrder", method = RequestMethod.POST)
+	public String placeOrder(@ModelAttribute("orderline") Orderline orderline, HttpSession session) {
+		orderline.getProduct().setId(1);
+		Product product = productService.getProduct(orderline.getProduct().getId());
+		orderline.setProduct(product);
+		List<Orderline> orderLineList;
+		if(session.getAttribute("orderLineList") == null) {
+			orderLineList = new ArrayList<Orderline>();
+		} else {
+			orderLineList = (ArrayList<Orderline>) session.getAttribute("orderLineList");
+		}
+		
+		int index = 0;
+		boolean isNew = false;
+		for(Orderline ol : orderLineList) {
+			if(ol.getProduct().equals(orderline.getProduct())) {
+				orderLineList.set(index, orderline);
+				isNew = true;
+			}
+			
+			index++;
+		}
+		
+		if(!isNew) orderLineList.add(orderline);
+		session.setAttribute("orderLineList", orderLineList);	
+		return "redirect:/index";
+	}
+	
+	@RequestMapping(value = { "/checkout" }, method = RequestMethod.GET)
+	public String checkout(Model model, HttpSession session) {
+		model.addAttribute("orderLineList", (ArrayList<Orderline>) session.getAttribute("orderLineList"));
+		return "checkout";
+	}
+	
+	@RequestMapping(value = { "/makeOrder" }, method = RequestMethod.GET)
+	public String makeOrder(Model model, HttpSession session) {
+		List<Orderline> orderLineList =  (ArrayList<Orderline>) session.getAttribute("orderLineList");
+		Person person = (Person) session.getAttribute("user");
+		
 		Order order = new Order();
-		//PersonService personService = new PersonService();
 		order.setOrderDate(new Date());
+		order.setPerson(person);
+		for(Orderline orderline : orderLineList) {
+			order.addOrderLine(orderline);
+		}
 		
-		Person p1 = personService.findById(79);
-		System.out.println("Order --->" + p1);
-	//	order.setPerson(personService.findById(76));
-		
-		System.out.println("Order --->" + order);
 		orderService.save(order);
-		
-		ProductService productService = new ProductService();
-		Orderline orderLine = new Orderline();
-		orderLine.setQuantity(2);
-		orderLine.setOrder(order);
-		orderLine.setProduct(productService.getProduct(id));
-		OrderLineService orderLineService = new OrderLineService();
-		System.out.println("OrderLine--->" + orderLine );
-		orderLineService.save(orderLine);		
-		return "index";
+		return "success";
 	}
 }
